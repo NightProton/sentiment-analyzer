@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-400 to-purple-500 flex justify-center items-center min-h-screen">
+    <div class="bg-white p-8 rounded shadow-lg w-full max-w-lg">
+        <h1 class="text-3xl font-bold text-center mb-4 text-gray-800">Sentiment Analyzer</h1>
+        <form method="POST" action="/predict" class="space-y-4">
+            <textarea name="text" rows="4" class="w-full p-3 border rounded" placeholder="Enter your sentence here..." required></textarea>
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Analyze</button>
+        </form>
+        {% if prediction %}
+        <div class="mt-6 bg-gray-100 p-4 rounded text-center text-xl">
+            <p><strong>Input:</strong> {{ text }}</p>
+            <p><strong>Sentiment:</strong> {{ prediction }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
