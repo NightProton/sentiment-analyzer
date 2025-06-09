@@ -3,26 +3,98 @@
 <head>
     <title>Sentiment Analysis</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a0d2e 0%, #0d1b2a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.05) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ff00ff;
+            box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+            font-family: 'VT323', monospace;
+        }
+        .title {
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+            letter-spacing: 2px;
+            animation: flicker 2s infinite;
+        }
+        textarea {
+            background: #0d0d0d;
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            box-shadow: 0 0 10px #00ffff;
+            transition: box-shadow 0.3s ease;
+        }
+        textarea:focus {
+            box-shadow: 0 0 20px #ff00ff;
+            outline: none;
+        }
+        button {
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            border: 2px solid #ff00ff;
+            box-shadow: 0 0 10px #ff00ff;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            box-shadow: 0 0 20px #00ffff, 0 0 30px #ff00ff;
+            transform: translateY(-2px);
+        }
+        .result {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 15px #00ffff;
+            color: #00ffff;
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-r from-blue-400 to-purple-500 flex justify-center items-center min-h-screen">
-    <div class="bg-white p-8 rounded shadow-lg w-full max-w-lg">
-        <h1 class="text-3xl font-bold text-center mb-4 text-gray-800">Sentiment Analyzer</h1>
+<body class="flex justify-center items-center min-h-screen">
+    <div class="container p-8 rounded w-full max-w-lg">
+        <h1 class="title text-4xl font-bold text-center mb-4 text-pink-500">Sentiment Analyzer</h1>
         
         <form method="POST" action="/predict" class="space-y-4">
-            <textarea id="inputText" name="text" rows="4" class="w-full p-3 border rounded" placeholder="Enter your sentence here..." required></textarea>
+            <textarea id="inputText" name="text" rows="4" class="w-full p-3 rounded" placeholder="Enter your sentence here..." required></textarea>
             
             <div class="flex justify-between">
-                <button type="button" onclick="startDictation()" class="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-500">
+                <button type="button" onclick="startDictation()" class="bg-pink-600 text-white px-4 py-2 rounded hover:bg-cyan-500">
                     🎤 Speak
                 </button>
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                <button type="submit" class="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-pink-500">
                     Analyze
                 </button>
             </div>
         </form>
 
         {% if prediction %}
-        <div class="mt-6 bg-gray-100 p-4 rounded text-center text-xl">
+        <div class="result mt-6 p-4 rounded text-center">
             <p><strong>Input:</strong> {{ text }}</p>
             <p><strong>Sentiment:</strong> {{ prediction }}</p>
         </div>
